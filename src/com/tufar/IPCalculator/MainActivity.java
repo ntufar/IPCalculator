@@ -1,15 +1,11 @@
 package com.tufar.IPCalculator;
 
-import com.tufar.myfirstapp.R;
-import com.tufar.myfirstapp.R.id;
-import com.tufar.myfirstapp.R.layout;
-import com.tufar.myfirstapp.R.menu;
+import com.tufar.IPCalculator.R;
+
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.View;
 import android.widget.NumberPicker;
 import android.widget.NumberPicker.OnScrollListener;
 import android.widget.TextView;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.tufar.myfirstapp"
+    package="com.tufar.IPCalculator"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -21,14 +21,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name="com.tufar.IPCalculator.DisplayMessageActivityty"
-            android:label="@string/title_activity_display_message"
-            android:parentActivityName="com.tufar.IPCalculator.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.tufar.myfirstapp.MainActivity" />
         </activity>
     </application>
 
