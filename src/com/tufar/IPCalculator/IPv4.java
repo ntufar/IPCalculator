@@ -398,7 +398,7 @@ public class IPv4 {
 
 	/**
 	 * @author Nico Coetzee <NCoetzee1@fnb.co.za>
-	 * @param lowBoundary
+	 * @param lowBoundary 
 	 * @return
 	 */
     private String getBoundaryAddr(boolean lowBoundary){
