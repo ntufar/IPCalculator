@@ -1,5 +1,6 @@
 /*
 Copyright (c) 2010, Saddam Abu Ghaida, Nicolai Tufar
+              2013, Nico Coetzee <NCoetzee1@fnb.co.za>
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
