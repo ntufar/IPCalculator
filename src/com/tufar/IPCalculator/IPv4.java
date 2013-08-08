@@ -29,6 +29,8 @@ package com.tufar.IPCalculator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class IPv4 {
 	int baseIPnumeric;
@@ -395,8 +397,43 @@ public class IPv4 {
 	}
 
 	/**
-	 * @param args
+	 * @author Nico Coetzee <NCoetzee1@fnb.co.za>
+	 * @param lowBoundary
+	 * @return
 	 */
+    private String getBoundaryAddr(boolean lowBoundary){
+        String result = "";
+        String range = getHostAddressRange();
+        Pattern rangeRegex = Pattern.compile("(\\d+\\.\\d+\\.\\d+\\.\\d+)\\s+\\-\\s+(\\d+\\.\\d+\\.\\d+\\.\\d+)");
+        Matcher m = rangeRegex.matcher(range);
+        if( m.matches() ){
+            if( lowBoundary ){
+                result = m.group(1);
+            } else {
+                result = m.group(2);
+            }
+        }
+        return result;
+    }
+
+	/**
+	 * @author Nico Coetzee <NCoetzee1@fnb.co.za>
+	 * @param lowBoundary
+	 * @return the first IP address in the IP range
+	 */
+    public String getFirstIPAddr(){
+        return getBoundaryAddr(true);
+    }
+
+	/**
+	 * @author Nico Coetzee <NCoetzee1@fnb.co.za>
+	 * @param lowBoundary
+	 * @return the last IP address in the IP range
+	 */
+    public String getLastIPAddr(){
+        return getBoundaryAddr(false);
+    }
+	
 	/**
 	 * @param args
 	 */
