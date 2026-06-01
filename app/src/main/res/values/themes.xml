@@ -26,4 +26,9 @@
         <item name="colorErrorContainer">@color/md_theme_error_container</item>
         <item name="colorOnErrorContainer">@color/md_theme_on_error_container</item>
     </style>
+
+    <style name="ThemeOverlay.IPCalculator.NumberPicker" parent="">
+        <item name="colorControlNormal">@color/md_theme_outline_variant</item>
+        <item name="colorControlActivated">@color/md_theme_primary</item>
+    </style>
 </resources>
