@@ -9,18 +9,18 @@ android {
     signingConfigs {
         create("release") {
             storeFile = rootProject.file("release.keystore")
-            storePassword = "CHlfF4YIoQSHzvnz4IEzI1ZO"
-            keyAlias = "stasi-upload"
-            keyPassword = "CHlfF4YIoQSHzvnz4IEzI1ZO"
+            storePassword = System.getenv("KEYSTORE_PASSWORD") ?: "CHlfF4YIoQSHzvnz4IEzI1ZO"
+            keyAlias = System.getenv("KEY_ALIAS") ?: "stasi-upload"
+            keyPassword = System.getenv("KEY_PASSWORD") ?: "CHlfF4YIoQSHzvnz4IEzI1ZO"
         }
     }
 
     defaultConfig {
-        applicationId = "com.tufar.IPCalculator"
+        applicationId = "com.tufar.IPCalculator.V2"
         minSdk = 21
         targetSdk = 36
         versionCode = 2
-        versionName = "2.0"
+        versionName = "1.0.1"
     }
 
     buildTypes {
