@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.0] - 2026-06-01
+
+### Added
+- Dark theme support with manual toggle via menu item (persisted across sessions)
+- Tap any result card to copy its value to clipboard
+- IP classification showing IP class (A-E), scope (Public/Private), and special ranges (Loopback, Link-Local, Multicast)
+- Extended CIDR prefix range from 8-31 to 0-32 for full subnet mask support
+
+### Changed
+- Refactored IPv4 engine to use Integer.bitCount for prefix length calculation
+- Fixed host address range edge cases for /31 and /32 subnets
+- Fixed broadcast address calculation for /32 subnet
+
 ## [1.0.3] - 2026-06-01
 
 ### Added

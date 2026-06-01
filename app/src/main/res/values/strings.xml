@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">IP Calculator</string>
+    <string name="action_dark_mode">Dark Mode</string>
+    <string name="action_light_mode">Light Mode</string>
+    <string name="copied_to_clipboard">Copied to clipboard</string>
+    <string name="ip_classification">IP Classification</string>
 </resources>

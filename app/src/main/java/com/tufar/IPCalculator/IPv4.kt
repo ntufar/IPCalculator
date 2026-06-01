@@ -1,7 +1,5 @@
 package com.tufar.IPCalculator
 
-import kotlin.math.pow
-
 class IPv4(IPinCIDRFormat: String) {
 
     var baseIPnumeric: Int
@@ -13,8 +11,8 @@ class IPv4(IPinCIDRFormat: String) {
             throw NumberFormatException("Invalid CIDR format '$IPinCIDRFormat', should be: xx.xx.xx.xx/xx")
         val symbolicIP = st[0]
         val numericCIDR = st[1].toInt()
-        if (numericCIDR > 32)
-            throw NumberFormatException("CIDR can not be greater than 32")
+        if (numericCIDR < 0 || numericCIDR > 32)
+            throw NumberFormatException("CIDR must be between 0 and 32")
 
         val ipParts = symbolicIP.split(".")
         if (ipParts.size != 4)
@@ -29,11 +27,12 @@ class IPv4(IPinCIDRFormat: String) {
             i -= 8
         }
 
-        if (numericCIDR < 8)
-            throw NumberFormatException("Netmask CIDR can not be less than 8")
         netmaskNumeric = -1
         netmaskNumeric = netmaskNumeric shl (32 - numericCIDR)
     }
+
+    val prefixLength: Int
+        get() = Integer.bitCount(netmaskNumeric)
 
     val ip: String
         get() = convertNumericIpToSymbolic(baseIPnumeric)
@@ -60,45 +59,41 @@ class IPv4(IPinCIDRFormat: String) {
         }
 
     val cidr: String
-        get() {
-            val i = (0..31).first { (netmaskNumeric shl it) == 0 }
-            return "${convertNumericIpToSymbolic(baseIPnumeric and netmaskNumeric)}/$i"
-        }
+        get() = "${convertNumericIpToSymbolic(baseIPnumeric and netmaskNumeric)}/$prefixLength"
 
     fun getAvailableIPs(numberofIPs: Int): List<String> {
         val result = mutableListOf<String>()
-        val numberOfBits = (0..31).first { (netmaskNumeric shl it) == 0 }
-        var numberOfIPs = 0
-        for (n in 0 until (32 - numberOfBits)) {
-            numberOfIPs = numberOfIPs shl 1
-            numberOfIPs = numberOfIPs or 0x01
-        }
+        val numberOfBits = prefixLength
+        val totalIPs = 1L shl (32 - numberOfBits)
         val baseIP = baseIPnumeric and netmaskNumeric
-        for (i in 1 until numberOfIPs.coerceAtMost(numberofIPs)) {
-            result.add(convertNumericIpToSymbolic(baseIP + i))
+        val limit = minOf(totalIPs, numberofIPs.toLong())
+        for (i in 1 until limit) {
+            result.add(convertNumericIpToSymbolic((baseIP.toLong() + i).toInt()))
         }
         return result
     }
 
     val hostAddressRange: String
         get() {
-            val numberOfBits = (0..31).first { (netmaskNumeric shl it) == 0 }
-            var numberOfIPs = 0
-            for (n in 0 until (32 - numberOfBits)) {
-                numberOfIPs = numberOfIPs shl 1
-                numberOfIPs = numberOfIPs or 0x01
-            }
+            val totalIPs = 1L shl (32 - prefixLength)
             val baseIP = baseIPnumeric and netmaskNumeric
-            val firstIP = convertNumericIpToSymbolic(baseIP + 1)
-            val lastIP = convertNumericIpToSymbolic(baseIP + numberOfIPs - 1)
-            return "$firstIP - $lastIP"
+            return when {
+                totalIPs == 1L -> convertNumericIpToSymbolic(baseIP)
+                totalIPs == 2L -> {
+                    val first = convertNumericIpToSymbolic(baseIP)
+                    val last = convertNumericIpToSymbolic((baseIP.toLong() + 1).toInt())
+                    "$first - $last"
+                }
+                else -> {
+                    val firstIP = convertNumericIpToSymbolic((baseIP.toLong() + 1).toInt())
+                    val lastIP = convertNumericIpToSymbolic((baseIP.toLong() + totalIPs - 2).toInt())
+                    "$firstIP - $lastIP"
+                }
+            }
         }
 
     val numberOfHosts: Long
-        get() {
-            val numberOfBits = (0..31).first { (netmaskNumeric shl it) == 0 }
-            return 2.0.pow(32 - numberOfBits).toLong()
-        }
+        get() = 1L shl (32 - prefixLength)
 
     val wildcardMask: String
         get() {
@@ -114,15 +109,9 @@ class IPv4(IPinCIDRFormat: String) {
 
     val broadcastAddress: String
         get() {
-            if (netmaskNumeric == -1) return "0.0.0.0"
-            val numberOfBits = (0..31).first { (netmaskNumeric shl it) == 0 }
-            var numberOfIPs = 0
-            for (n in 0 until (32 - numberOfBits)) {
-                numberOfIPs = numberOfIPs shl 1
-                numberOfIPs = numberOfIPs or 0x01
-            }
+            val totalIPs = 1L shl (32 - prefixLength)
             val baseIP = baseIPnumeric and netmaskNumeric
-            return convertNumericIpToSymbolic(baseIP + numberOfIPs)
+            return convertNumericIpToSymbolic((baseIP.toLong() + totalIPs - 1).toInt())
         }
 
     val netmaskInBinary: String
@@ -143,6 +132,24 @@ class IPv4(IPinCIDRFormat: String) {
         }
         return result
     }
+
+    val classificationSummary: String
+        get() {
+            val firstOctet = baseIPnumeric ushr 24 and 0xff
+            val secondOctet = baseIPnumeric ushr 16 and 0xff
+            return when {
+                firstOctet == 127 -> "Loopback · Class A"
+                firstOctet == 169 && secondOctet == 254 -> "Link-Local · Class B"
+                firstOctet == 10 -> "Private (10.0.0.0/8) · Class A"
+                firstOctet == 172 && secondOctet in 16..31 -> "Private (172.16.0.0/12) · Class B"
+                firstOctet == 192 && secondOctet == 168 -> "Private (192.168.0.0/16) · Class C"
+                firstOctet in 224..239 -> "Multicast · Class D"
+                firstOctet in 240..255 -> "Reserved · Class E"
+                firstOctet < 128 -> "Public · Class A"
+                firstOctet < 192 -> "Public · Class B"
+                else -> "Public · Class C"
+            }
+        }
 
     fun contains(IPaddress: String): Boolean {
         var checkingIP = 0
