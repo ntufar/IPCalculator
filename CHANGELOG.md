@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.3] - 2026-06-01
+
+### Added
+- New adaptive app icon with network topology design (purple theme)
+- 512px Play Store icon and 1024x500 feature graphic
+- Round icon support for modern Android launchers
+
+### Changed
+- Migrated launcher icon from flat PNGs to mipmap-based adaptive icon
+- Updated AndroidManifest to reference mipmap icons
+
 ## [1.0.2] - 2026-06-01
 
 ### Added

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <group
+        android:translateX="0"
+        android:translateY="0">
+        <!-- Connecting lines -->
+        <path
+            android:fillColor="#00000000"
+            android:strokeColor="#FFFFFF"
+            android:strokeWidth="3"
+            android:pathData="M54,34L26,78M54,34L82,78M26,78L82,78" />
+        <!-- Top node -->
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M45,34a9,9,0,1,1,18,0a9,9,0,1,1,-18,0" />
+        <!-- Bottom-left node -->
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M17,78a9,9,0,1,1,18,0a9,9,0,1,1,-18,0" />
+        <!-- Bottom-right node -->
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M73,78a9,9,0,1,1,18,0a9,9,0,1,1,-18,0" />
+        <!-- Center dot (subnet indicator) -->
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M51,56a3,3,0,1,1,6,0a3,3,0,1,1,-6,0" />
+    </group>
+</vector>
