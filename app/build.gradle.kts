@@ -6,6 +6,15 @@ android {
     namespace = "com.tufar.IPCalculator"
     compileSdk = 36
 
+    signingConfigs {
+        create("release") {
+            storeFile = rootProject.file("release.keystore")
+            storePassword = "CHlfF4YIoQSHzvnz4IEzI1ZO"
+            keyAlias = "stasi-upload"
+            keyPassword = "CHlfF4YIoQSHzvnz4IEzI1ZO"
+        }
+    }
+
     defaultConfig {
         applicationId = "com.tufar.IPCalculator"
         minSdk = 21
@@ -16,6 +25,7 @@ android {
 
     buildTypes {
         release {
+            signingConfig = signingConfigs.getByName("release")
             isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt")
