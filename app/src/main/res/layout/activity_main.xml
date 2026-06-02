@@ -93,8 +93,6 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:paddingBottom="28dp"
                     android:layout_marginHorizontal="2dp"
                     android:src="@drawable/ic_dot"
                     android:contentDescription="@null"
@@ -113,8 +111,6 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:paddingBottom="28dp"
                     android:layout_marginHorizontal="2dp"
                     android:src="@drawable/ic_dot"
                     android:contentDescription="@null"
@@ -133,8 +129,6 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:paddingBottom="28dp"
                     android:layout_marginHorizontal="2dp"
                     android:src="@drawable/ic_dot"
                     android:contentDescription="@null"
@@ -153,8 +147,6 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:paddingBottom="28dp"
                     android:layout_marginHorizontal="4dp"
                     android:gravity="center"
                     android:background="@drawable/divider_chip"
