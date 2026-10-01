@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// iOS port of Android `MainActivity`: CIDR input via rollers (Pickers)
+/// iOS port of Android `MainActivity`: CIDR input via native wheel rollers
 /// plus subnet result cards. Tap any result card to copy its value.
 struct ContentView: View {
     @AppStorage("dark_mode") private var darkMode = false
@@ -83,24 +83,15 @@ struct ContentView: View {
     }
 
     private var pickerCard: some View {
-        HStack(spacing: 2) {
-            DialColumn(label: "Octet 1", value: $octet1, range: 0...255)
-            Text(".").bold().foregroundStyle(.secondary)
-            DialColumn(label: "Octet 2", value: $octet2, range: 0...255)
-            Text(".").bold().foregroundStyle(.secondary)
-            DialColumn(label: "Octet 3", value: $octet3, range: 0...255)
-            Text(".").bold().foregroundStyle(.secondary)
-            DialColumn(label: "Octet 4", value: $octet4, range: 0...255)
-            Text("/")
-                .bold()
-                .padding(.horizontal, 4)
-                .padding(.vertical, 2)
-                .background(.quaternary.opacity(0.6), in: RoundedRectangle(cornerRadius: 6))
-                .padding(.horizontal, 2)
-            DialColumn(label: "Prefix", value: $prefix, range: 0...32)
-        }
-        .padding(.horizontal, 8)
-        .padding(.vertical, 4)
+        CIDRPicker(fields: [
+            .init(label: "Octet 1", range: 0...255, value: $octet1),
+            .init(label: "Octet 2", range: 0...255, value: $octet2),
+            .init(label: "Octet 3", range: 0...255, value: $octet3),
+            .init(label: "Octet 4", range: 0...255, value: $octet4),
+            .init(label: "Prefix", range: 0...32, value: $prefix),
+        ])
+        .frame(maxWidth: .infinity)
+        .padding(.horizontal, 4)
         .background(.quaternary.opacity(0.4), in: RoundedRectangle(cornerRadius: 20))
         .overlay(RoundedRectangle(cornerRadius: 20).stroke(.quaternary, lineWidth: 1))
     }
@@ -132,85 +123,6 @@ struct ContentView: View {
             withAnimation { showCopiedToast = false }
         }
     }
-}
-
-/// A draggable number dial. Unlike a wheel `Picker` (which commits its row
-/// only when scrolling settles), this writes the bound value continuously
-/// while the finger moves, so results recalculate mid-scroll.
-private struct DialColumn: View {
-    let label: String
-    @Binding var value: Int
-    let range: ClosedRange<Int>
-
-    private static let rowHeight: CGFloat = 34
-    private static let visibleRows = 5
-
-    @State private var baseValue = 0
-    @State private var shift: CGFloat = 0
-
-    var body: some View {
-        let centerIndex = Self.visibleRows / 2
-        VStack(spacing: 0) {
-            ForEach(0..<Self.visibleRows, id: \.self) { row in
-                let number = value + row - centerIndex
-                Text(range.contains(number) ? "\(number)" : " ")
-                    .font(row == centerIndex ? .title3.weight(.semibold) : .body)
-                    .foregroundStyle(row == centerIndex ? .primary : .secondary)
-                    .frame(height: Self.rowHeight)
-            }
-        }
-        .frame(maxWidth: .infinity)
-        .frame(height: Self.rowHeight * CGFloat(Self.visibleRows))
-        .offset(y: fractionalShift)
-        .clipped()
-        .contentShape(Rectangle())
-        .gesture(
-            DragGesture(minimumDistance: 2)
-                .onChanged { drag in
-                    shift = drag.translation.height
-                    let next = dialClampedValue(base: baseValue, translation: drag.translation.height,
-                                                rowHeight: Self.rowHeight, range: range)
-                    if next != value { value = next }
-                }
-                .onEnded { _ in
-                    baseValue = value
-                    withAnimation(.spring(response: 0.2)) { shift = 0 }
-                }
-        )
-        .onAppear { baseValue = value }
-        .sensoryFeedback(.selection, trigger: value)
-        .accessibilityLabel(label)
-        .accessibilityValue("\(value)")
-        .accessibilityAdjustableAction { direction in
-            switch direction {
-            case .increment: value = min(value + 1, range.upperBound)
-            case .decrement: value = max(value - 1, range.lowerBound)
-            @unknown default: break
-            }
-            baseValue = value
-        }
-    }
-
-    /// Sub-row remainder so the column glides smoothly between integers.
-    private var fractionalShift: CGFloat {
-        dialFractionalShift(base: baseValue, value: value, translation: shift,
-                            rowHeight: Self.rowHeight)
-    }
-}
-
-/// Maps a vertical drag into the dial's integer value (drag up increases).
-/// Pure function so the live-update behavior is unit-testable.
-func dialClampedValue(base: Int, translation: CGFloat, rowHeight: CGFloat,
-                      range: ClosedRange<Int>) -> Int {
-    let raw = Double(base) - Double(translation) / Double(rowHeight)
-    return min(max(Int(raw.rounded()), range.lowerBound), range.upperBound)
-}
-
-/// Sub-row pixel remainder for smooth gliding between integers.
-func dialFractionalShift(base: Int, value: Int, translation: CGFloat,
-                         rowHeight: CGFloat) -> CGFloat {
-    let raw = Double(base) - Double(translation) / Double(rowHeight)
-    return CGFloat(raw - Double(value)) * rowHeight
 }
 
 /// A single tappable result row; mirrors one Android `MaterialCardView`.

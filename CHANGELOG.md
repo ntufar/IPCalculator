@@ -4,11 +4,18 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.1.1] - 2026-10-02
+
 ### Added
 - Native iOS version in `ios/` (SwiftUI, iOS 17+): CIDR rollers, subnet results, tap-to-copy, dark mode toggle
-- iOS dials recalculate results live mid-drag (replaced wheel pickers, which only commit on scroll settle); covered by `IPCalculatorTests` (dial mapping + engine parity)
+- iOS dials recalculate results live mid-scroll and while a flick decelerates (a plain picker only commits once the wheel settles); covered by `IPCalculatorTests` (live streaming + engine parity)
 - iOS result cards roll their digits on change and glow softly while values stream, then fade back to rest
 - Swift port of the IPv4 engine with identical results; fixes /0 netmask calculation (was 255.255.255.255 on Android due to JVM shift masking, now correctly 0.0.0.0)
+- iOS App Store icon (1024px, from the Play Store artwork) and App Store Connect setup: team signing, export-compliance and Utilities category Info.plist keys
+
+### Changed
+- iOS CIDR rollers are now a single native `UIPickerView` (system wheel look, momentum, sound, haptics and VoiceOver) instead of custom-drawn dials; values still stream live while spinning
+- Android IP roller dots and slash separator are vertically centered on the selected row
 
 ## [1.1.0] - 2026-06-01
 
