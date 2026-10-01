@@ -79,6 +79,12 @@ header h1 {
     filter: drop-shadow(0 2px 8px rgba(0,0,0,0.2));
 }
 
+.store-note {
+    margin-top: 12px;
+    font-size: 0.875rem;
+    opacity: 0.8;
+}
+
 /* Sections */
 
 section {

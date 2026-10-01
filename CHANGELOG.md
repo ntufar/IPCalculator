@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Changed
+- Privacy policy covers both Android and iOS, and discloses the locally stored dark mode setting and write-only clipboard use on tap
+- Landing page and README mention the iOS version (iPhone and iPad), with an App Store "coming soon" note
+
 ## [1.1.1] - 2026-10-02
 
 ### Added
