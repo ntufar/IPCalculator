@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+### Added
+- Native iOS version in `ios/` (SwiftUI, iOS 17+): CIDR rollers, subnet results, tap-to-copy, dark mode toggle
+- iOS dials recalculate results live mid-drag (replaced wheel pickers, which only commit on scroll settle); covered by `IPCalculatorTests` (dial mapping + engine parity)
+- iOS result cards roll their digits on change and glow softly while values stream, then fade back to rest
+- Swift port of the IPv4 engine with identical results; fixes /0 netmask calculation (was 255.255.255.255 on Android due to JVM shift masking, now correctly 0.0.0.0)
+
 ## [1.1.0] - 2026-06-01
 
 ### Added

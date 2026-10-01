@@ -20,6 +20,23 @@ IP subnet calculator for Android.
 
 APK output: `app/build/outputs/apk/debug/app-debug.apk`
 
+## iOS
+
+Native SwiftUI version in `ios/` (requires Xcode 26+, iOS 17+).
+
+```bash
+cd ios
+xcodebuild -project IPCalculator.xcodeproj -scheme IPCalculator \
+  -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
+  CODE_SIGNING_ALLOWED=NO build
+```
+
+Or open `ios/IPCalculator.xcodeproj` in Xcode and run on a simulator.
+Feature parity with Android: CIDR rollers (0-255 octets, /0-/32),
+subnet mask, broadcast, wildcard, host range, host count, binary
+netmask, IP classification, tap-to-copy, persisted dark mode toggle.
+Bundle ID `com.tufar.IPCalculator.V2`, version matches Android.
+
 ## Modernization
 
 Migrated from Eclipse/ADT (API 11-17) to Gradle + Kotlin (API 21-36).

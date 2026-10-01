@@ -15,3 +15,7 @@ keystore.properties
 encrypted_private_key
 encrypted_private_key.zip
 output.zip
+
+# iOS
+/ios/build/
+DerivedData/
