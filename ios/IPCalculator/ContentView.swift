@@ -23,14 +23,14 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading, spacing: 12) {
+                VStack(alignment: .leading, spacing: 8) {
                     networkCard
                     pickerCard
 
                     Text("Results")
                         .font(.headline)
                         .foregroundStyle(.secondary)
-                        .padding(.top, 12)
+                        .padding(.top, 4)
 
                     switch result {
                     case .success(let ipv4):
@@ -40,7 +40,8 @@ struct ContentView: View {
                             .foregroundStyle(.red)
                     }
                 }
-                .padding()
+                .padding(.horizontal)
+                .padding(.vertical, 8)
             }
             .navigationTitle("IP Calculator")
             .toolbar {
@@ -77,9 +78,10 @@ struct ContentView: View {
                 .foregroundStyle(.secondary)
                 .monospacedDigit()
         }
-        .padding()
-        .background(.quaternary.opacity(0.4), in: RoundedRectangle(cornerRadius: 20))
-        .overlay(RoundedRectangle(cornerRadius: 20).stroke(.quaternary, lineWidth: 1))
+        .padding(.horizontal, 12)
+        .padding(.vertical, 10)
+        .background(.quaternary.opacity(0.4), in: RoundedRectangle(cornerRadius: 14))
+        .overlay(RoundedRectangle(cornerRadius: 14).stroke(.quaternary, lineWidth: 1))
     }
 
     private var pickerCard: some View {
@@ -91,9 +93,11 @@ struct ContentView: View {
             .init(label: "Prefix", range: 0...32, value: $prefix),
         ])
         .frame(maxWidth: .infinity)
+        .frame(height: 150)
         .padding(.horizontal, 4)
-        .background(.quaternary.opacity(0.4), in: RoundedRectangle(cornerRadius: 20))
-        .overlay(RoundedRectangle(cornerRadius: 20).stroke(.quaternary, lineWidth: 1))
+        .padding(.vertical, 4)
+        .background(.quaternary.opacity(0.4), in: RoundedRectangle(cornerRadius: 14))
+        .overlay(RoundedRectangle(cornerRadius: 14).stroke(.quaternary, lineWidth: 1))
     }
 
     private func resultCards(_ ipv4: IPv4) -> some View {
@@ -140,28 +144,40 @@ private struct ResultCard: View {
         changed ? .accentColor.opacity(0.14) : Color(.quaternarySystemFill).opacity(0.4)
     }
 
+    /// Long dotted values (netmask binary is 35 chars) stay on one line:
+    /// smaller monospaced font plus shrink-to-fit instead of wrapping.
+    private var valueFont: Font {
+        value.count > 22
+            ? .system(.callout, design: .monospaced).weight(.bold)
+            : .body.weight(.bold)
+    }
+
     var body: some View {
         Button { onCopy(value) } label: {
-            HStack(spacing: 12) {
+            HStack(spacing: 10) {
                 Image(systemName: systemImage)
-                    .frame(width: 24, height: 24)
+                    .frame(width: 20, height: 20)
                     .foregroundStyle(.tint)
-                VStack(alignment: .leading, spacing: 2) {
+                VStack(alignment: .leading, spacing: 1) {
                     Text(title)
                         .font(.caption)
                         .foregroundStyle(.secondary)
                     Text(value)
-                        .font(.body.weight(.bold))
+                        .font(valueFont)
                         .foregroundStyle(.primary)
                         .multilineTextAlignment(.leading)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.6)
+                        .allowsTightening(true)
                         .contentTransition(.numericText())
                         .animation(.easeInOut(duration: 0.2), value: value)
                 }
                 Spacer()
             }
-            .padding()
-            .background(cardBackground, in: RoundedRectangle(cornerRadius: 20))
-            .overlay(RoundedRectangle(cornerRadius: 20).stroke(.quaternary, lineWidth: 1))
+            .padding(.horizontal, 12)
+            .padding(.vertical, 9)
+            .background(cardBackground, in: RoundedRectangle(cornerRadius: 14))
+            .overlay(RoundedRectangle(cornerRadius: 14).stroke(.quaternary, lineWidth: 1))
             .animation(.easeInOut(duration: 0.25), value: changed)
         }
         .buttonStyle(.plain)

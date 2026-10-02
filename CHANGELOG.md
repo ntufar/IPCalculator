@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - Privacy policy covers both Android and iOS, and discloses the locally stored dark mode setting and write-only clipboard use on tap
 - Landing page and README mention the iOS version (iPhone and iPad), with an App Store "coming soon" note
+- Compact result cards and picker so the full results fit on one phone screen; netmask binary stays on a single line (smaller monospaced font with shrink-to-fit on iOS, monospace 13sp single-line on Android)
 
 ## [1.1.1] - 2026-10-02
 
