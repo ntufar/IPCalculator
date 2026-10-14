@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 - App Store link on the landing page for the iPhone and iPad app, with the official Apple badge
 - Web version of the IP calculator on the landing page. It runs in the browser and sends no data to a server
 - Browser calculator copies a value when you tap its tile
+- Favicon and Apple touch icon on the website, made from the app icon
 - Unit tests for the web calculator engine in `tests/web/`. Run them with `node --test tests/web/`
 
 ### Changed
