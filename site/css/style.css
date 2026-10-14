@@ -74,9 +74,47 @@ header h1 {
     opacity: 1;
 }
 
+.store-badges {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
 .play-badge img {
     height: 60px;
     filter: drop-shadow(0 2px 8px rgba(0,0,0,0.2));
+}
+
+.app-store-badge {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 60px;
+    box-sizing: border-box;
+    padding: 0 20px;
+    border: 1px solid rgba(255,255,255,0.6);
+    border-radius: 10px;
+    background: #000;
+    color: var(--white);
+    text-decoration: none;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.2));
+}
+
+.app-store-badge:hover {
+    opacity: 0.85;
+}
+
+.app-store-badge-small {
+    font-size: 0.6875rem;
+    line-height: 1.1;
+}
+
+.app-store-badge-large {
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.1;
 }
 
 .store-note {
