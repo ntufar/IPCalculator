@@ -49,7 +49,13 @@ Migrated from Eclipse/ADT (API 11-17) to Gradle + Kotlin (API 21-36).
 
 ## Website
 
-The app landing page and privacy policy are in `site/` and deployed to GitHub Pages on every push via `.github/workflows/deploy-pages.yml`.
+The app landing page, the web calculator and the privacy policy are in `site/` and deployed to GitHub Pages on every push via `.github/workflows/deploy-pages.yml`.
+
+The web calculator runs in the browser. Its engine is `site/js/ipv4.js`. Run the engine tests with:
+
+```bash
+node --test tests/web/
+```
 
 Visit: https://ntufar.github.io/IPCalculator/
 

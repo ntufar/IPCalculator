@@ -6,11 +6,18 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 - App Store link on the landing page for the iPhone and iPad app, with the official Apple badge
+- Web version of the IP calculator on the landing page. It runs in the browser and sends no data to a server
+- Browser calculator copies a value when you tap its tile
+- Unit tests for the web calculator engine in `tests/web/`. Run them with `node --test tests/web/`
 
 ### Changed
+- Landing page redesign with a sticky header, a hero section and a new Apps section for the store badges
 - Privacy policy covers both Android and iOS, and discloses the locally stored dark mode setting and write-only clipboard use on tap
 - Landing page and README mention the iOS version (iPhone and iPad), with an App Store "coming soon" note
 - Compact result cards and picker so the full results fit on one phone screen; netmask binary stays on a single line (smaller monospaced font with shrink-to-fit on iOS, monospace 13sp single-line on Android)
+
+### Removed
+- Phone screenshot section on the landing page. The live calculator replaces it
 
 ### Fixed
 - Landing page Google Play badge links to the app listing (`com.tufar.IPCalculator.V2`) instead of a placeholder `#` link

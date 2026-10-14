@@ -3,98 +3,139 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>IP Calculator for Android and iOS</title>
+    <meta name="description" content="Free IPv4 subnet calculator. Compute network, broadcast, host range, wildcard mask and binary netmask in your browser, or get the Android and iOS apps." />
+    <title>IP Calculator &middot; IPv4 Subnet Calculator</title>
     <link rel="stylesheet" href="css/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>IP Calculator</h1>
-            <p class="subtitle">Fast IPv4 subnet calculator for Android, iPhone and iPad</p>
-            <div class="store-badges">
-                <a href="https://play.google.com/store/apps/details?id=com.tufar.IPCalculator.V2"
-                   class="play-badge"
-                   target="_blank"
-                   rel="noopener">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
-                         alt="Get it on Google Play"
-                         height="60" />
-                </a>
-                <a href="https://apps.apple.com/ua/app/ip-calculator-subnet-cidr/id6818343731"
-                   class="app-store-badge"
-                   target="_blank"
-                   rel="noopener">
-                    <img src="images/download-on-the-app-store.svg"
-                         alt="Download on the App Store"
-                         height="60" />
-                </a>
-            </div>
-            <p class="store-note">Available for Android and for iPhone and iPad.</p>
+    <header class="site-header">
+        <div class="container nav">
+            <a href="#top" class="brand">IP Calculator</a>
+            <nav class="nav-links">
+                <a href="#calculator">Calculator</a>
+                <a href="#features">Features</a>
+                <a href="#apps">Apps</a>
+                <a href="https://github.com/ntufar/IPCalculator" target="_blank" rel="noopener">GitHub</a>
+            </nav>
         </div>
     </header>
 
-    <main>
-        <section class="features">
+    <main id="top">
+        <section class="hero">
             <div class="container">
-                <h2>Features</h2>
-                <div class="grid">
-                    <div class="card">
-                        <div class="icon network"></div>
-                        <h3>Subnet Mask</h3>
-                        <p>Instantly computes the dotted-decimal subnet mask from any CIDR notation.</p>
-                    </div>
-                    <div class="card">
-                        <div class="icon hosts"></div>
-                        <h3>Number of Hosts</h3>
-                        <p>Calculates the total usable host addresses for any subnet size.</p>
-                    </div>
-                    <div class="card">
-                        <div class="icon broadcast"></div>
-                        <h3>Broadcast Address</h3>
-                        <p>Finds the broadcast address for any IP and subnet combination.</p>
-                    </div>
-                    <div class="card">
-                        <div class="icon wildcard"></div>
-                        <h3>Wildcard Mask</h3>
-                        <p>Displays the wildcard (inverse) mask used in ACLs and routing protocols.</p>
-                    </div>
-                    <div class="card">
-                        <div class="icon range"></div>
-                        <h3>Host Range</h3>
-                        <p>Shows the first and last usable IP addresses in the subnet.</p>
-                    </div>
-                    <div class="card">
-                        <div class="icon binary"></div>
-                        <h3>Binary View</h3>
-                        <p>See the netmask in binary format for educational purposes.</p>
-                    </div>
+                <p class="eyebrow">IPv4 subnet calculator</p>
+                <h1>Subnets, calculated <span class="accent">instantly.</span></h1>
+                <p class="lead">Enter an address and a prefix. See the network, broadcast, host range and masks at once. Runs in your browser with no account and no data sent to a server.</p>
+                <div class="hero-actions">
+                    <a href="#calculator" class="button">Open the calculator</a>
+                    <a href="#apps" class="button ghost">Get the app</a>
                 </div>
             </div>
         </section>
 
-        <section class="screenshot">
+        <section id="calculator" class="calculator">
             <div class="container">
-                <h2>Simple. Fast. Offline.</h2>
-                <p>Adjust the IP octets and CIDR prefix with native number pickers on Android and native wheels on iOS &mdash; results update instantly. No internet required.</p>
-                <div class="phone-frame">
-                    <img src="images/screenshot.png" alt="IP Calculator app screenshot" />
+                <div class="calc-card">
+                    <form id="calc-form" class="calc-form" novalidate>
+                        <label class="field-label" for="oct-0">IP address and prefix</label>
+                        <div class="ip-row">
+                            <input id="oct-0" class="octet" type="text" inputmode="numeric" maxlength="3" autocomplete="off" value="192" aria-label="First octet" />
+                            <span class="sep" aria-hidden="true">.</span>
+                            <input id="oct-1" class="octet" type="text" inputmode="numeric" maxlength="3" autocomplete="off" value="168" aria-label="Second octet" />
+                            <span class="sep" aria-hidden="true">.</span>
+                            <input id="oct-2" class="octet" type="text" inputmode="numeric" maxlength="3" autocomplete="off" value="1" aria-label="Third octet" />
+                            <span class="sep" aria-hidden="true">.</span>
+                            <input id="oct-3" class="octet" type="text" inputmode="numeric" maxlength="3" autocomplete="off" value="10" aria-label="Fourth octet" />
+                            <span class="sep slash" aria-hidden="true">/</span>
+                            <input id="prefix" class="prefix" type="number" inputmode="numeric" min="0" max="32" value="24" aria-label="CIDR prefix length" />
+                        </div>
+                        <input id="prefix-range" class="range" type="range" min="0" max="32" value="24" aria-label="CIDR prefix slider" />
+                        <div class="range-scale" aria-hidden="true"><span>/0</span><span>/16</span><span>/32</span></div>
+                        <p id="error" class="error" role="alert" hidden></p>
+                    </form>
+
+                    <div id="network" class="network" aria-live="polite">
+                        <span class="network-label">Network</span>
+                        <button type="button" class="network-value" data-copy="" title="Copy network"></button>
+                    </div>
+                    <div id="results" class="results" aria-live="polite"></div>
+                    <p class="hint">Tap any value to copy it.</p>
+                    <noscript><p class="error">Enable JavaScript to use the calculator.</p></noscript>
+                </div>
+            </div>
+            <div id="toast" class="toast" role="status" aria-live="polite" hidden>Copied to clipboard</div>
+        </section>
+
+        <section id="features" class="features">
+            <div class="container">
+                <h2>Everything a subnet needs</h2>
+                <div class="grid">
+                    <article class="card">
+                        <h3>Subnet mask</h3>
+                        <p>The dotted-decimal mask for any CIDR prefix.</p>
+                    </article>
+                    <article class="card">
+                        <h3>Number of hosts</h3>
+                        <p>The total address count for any subnet size.</p>
+                    </article>
+                    <article class="card">
+                        <h3>Broadcast address</h3>
+                        <p>The broadcast address for any IP and prefix pair.</p>
+                    </article>
+                    <article class="card">
+                        <h3>Wildcard mask</h3>
+                        <p>The inverse mask used in ACLs and routing protocols.</p>
+                    </article>
+                    <article class="card">
+                        <h3>Host range</h3>
+                        <p>The first and last usable addresses in the subnet.</p>
+                    </article>
+                    <article class="card">
+                        <h3>Binary netmask</h3>
+                        <p>The netmask in binary, for learning and review.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="apps" class="apps">
+            <div class="container">
+                <h2>Take it with you</h2>
+                <p class="section-lead">Native apps for Android, iPhone and iPad. They work fully offline.</p>
+                <div class="store-badges">
+                    <a href="https://play.google.com/store/apps/details?id=com.tufar.IPCalculator.V2"
+                       class="store-link"
+                       target="_blank"
+                       rel="noopener">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+                             alt="Get it on Google Play"
+                             height="60" />
+                    </a>
+                    <a href="https://apps.apple.com/ua/app/ip-calculator-subnet-cidr/id6818343731"
+                       class="store-link"
+                       target="_blank"
+                       rel="noopener">
+                        <img src="images/download-on-the-app-store.svg"
+                             alt="Download on the App Store"
+                             height="60" />
+                    </a>
                 </div>
             </div>
         </section>
 
         <section class="open-source">
             <div class="container">
-                <h2>Open Source</h2>
-                <p>Licensed under the BSD 2-Clause license. Contributions welcome on GitHub.</p>
-                <a href="https://github.com/ntufar/IPCalculator" class="button">View on GitHub</a>
+                <h2>Open source</h2>
+                <p class="section-lead">Licensed under the BSD 2-Clause license. Contributions welcome on GitHub.</p>
+                <a href="https://github.com/ntufar/IPCalculator" class="button ghost dark" target="_blank" rel="noopener">View on GitHub</a>
             </div>
         </section>
     </main>
 
-    <footer>
+    <footer class="site-footer">
         <div class="container">
             <p>&copy; 2010&ndash;2026 Nicolai Tufar, Saddam Abu Ghaida</p>
             <nav>
@@ -102,5 +143,8 @@
             </nav>
         </div>
     </footer>
+
+    <script src="js/ipv4.js"></script>
+    <script src="js/calculator.js"></script>
 </body>
 </html>
