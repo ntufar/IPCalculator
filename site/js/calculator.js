@@ -94,7 +94,7 @@
         ip.results().forEach(function (row) {
             var tile = document.createElement('button');
             tile.type = 'button';
-            tile.className = 'result' + (row.key === 'binary' ? ' wide' : '');
+            tile.className = 'result' + (row.key === 'binary' || row.key === 'class' ? ' wide ' + row.key : '');
             tile.dataset.copy = row.value;
 
             var label = document.createElement('span');

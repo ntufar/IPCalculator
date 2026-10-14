@@ -491,7 +491,7 @@ a {
     overflow-wrap: anywhere;
 }
 
-.result.wide .result-value {
+.result.binary .result-value {
     font-size: 0.8125rem;
     white-space: nowrap;
     overflow-x: auto;
