@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Added
-- App Store link on the landing page for the iPhone and iPad app
+- App Store link on the landing page for the iPhone and iPad app, with the official Apple badge
 
 ### Changed
 - Privacy policy covers both Android and iOS, and discloses the locally stored dark mode setting and write-only clipboard use on tap
