@@ -89,7 +89,8 @@ header h1 {
 
 .app-store-badge img {
     display: block;
-    height: 40px;
+    height: 60px;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.2));
 }
 
 .app-store-badge:hover {
