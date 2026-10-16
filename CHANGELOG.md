@@ -10,18 +10,29 @@ All notable changes to this project will be documented in this file.
 - Browser calculator copies a value when you tap its tile
 - Favicon and Apple touch icon on the website, made from the app icon
 - Unit tests for the web calculator engine in `tests/web/`. Run them with `node --test tests/web/`
+- Skip link to the calculator on the website, for keyboard users
+- Open Graph and Twitter meta tags on the website for link previews
 
 ### Changed
 - Landing page redesign with a sticky header, a hero section and a new Apps section for the store badges
 - Privacy policy covers both Android and iOS, and discloses the locally stored dark mode setting and write-only clipboard use on tap
 - Landing page and README mention the iOS version (iPhone and iPad), with an App Store "coming soon" note
 - Compact result cards and picker so the full results fit on one phone screen; netmask binary stays on a single line (smaller monospaced font with shrink-to-fit on iOS, monospace 13sp single-line on Android)
+- Website redesign. The calculator is the first view. It sits beside the headline on desktop.
+- Website uses the Geist and Geist Mono fonts. Numeric values use the monospace font.
+- Website uses one solid accent color. The gradient text and gradient banner are removed.
+- Website shows features as a specification list. The six feature cards are removed.
+- Website footer holds the license note and the GitHub link. The separate dark section is removed.
+- Website design values (color, spacing, type, radius) are set as tokens in `site/css/style.css`.
 
 ### Removed
 - Phone screenshot section on the landing page. The live calculator replaces it
+- Dark section above the footer on the website. Its content moved to the footer.
 
 ### Fixed
 - Landing page Google Play badge links to the app listing (`com.tufar.IPCalculator.V2`) instead of a placeholder `#` link
+- Website secondary text meets a contrast ratio of at least 4.5:1 in light mode.
+- Website buttons and links show a visible focus ring for keyboard users.
 
 ## [1.1.1] - 2026-10-02
 

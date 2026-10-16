@@ -4,19 +4,27 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Free IPv4 subnet calculator. Compute network, broadcast, host range, wildcard mask and binary netmask in your browser, or get the Android and iOS apps." />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="IP Calculator &middot; IPv4 Subnet Calculator" />
+    <meta property="og:description" content="Free IPv4 subnet calculator. Compute network, broadcast, host range, wildcard mask and binary netmask in your browser, or get the Android and iOS apps." />
+    <meta property="og:url" content="https://ntufar.github.io/IPCalculator/" />
+    <meta property="og:image" content="https://ntufar.github.io/IPCalculator/apple-touch-icon.png" />
+    <meta name="twitter:card" content="summary" />
     <title>IP Calculator &middot; IPv4 Subnet Calculator</title>
     <link rel="icon" type="image/png" sizes="64x64" href="favicon.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
 </head>
 <body>
+    <a class="skip-link" href="#calculator">Skip to calculator</a>
+
     <header class="site-header">
         <div class="container nav">
             <a href="#top" class="brand">IP Calculator</a>
-            <nav class="nav-links">
+            <nav class="nav-links" aria-label="Main">
                 <a href="#calculator">Calculator</a>
                 <a href="#features">Features</a>
                 <a href="#apps">Apps</a>
@@ -26,20 +34,18 @@
     </header>
 
     <main id="top">
-        <section class="hero">
-            <div class="container">
-                <p class="eyebrow">IPv4 subnet calculator</p>
-                <h1>Subnets, calculated <span class="accent">instantly.</span></h1>
-                <p class="lead">Enter an address and a prefix. See the network, broadcast, host range and masks at once. Runs in your browser with no account and no data sent to a server.</p>
-                <div class="hero-actions">
-                    <a href="#calculator" class="button">Open the calculator</a>
-                    <a href="#apps" class="button ghost">Get the app</a>
+        <section id="calculator" class="intro">
+            <div class="container intro-grid">
+                <div class="intro-copy">
+                    <p class="eyebrow">IPv4 subnet calculator</p>
+                    <h1>Subnets, calculated instantly.</h1>
+                    <p class="lead">Enter an address and a prefix. See the network, broadcast, host range and masks at once. Runs in your browser with no account and no data sent to a server.</p>
+                    <div class="hero-actions">
+                        <a href="#apps" class="button">Get the apps</a>
+                        <a href="https://github.com/ntufar/IPCalculator" class="text-link" target="_blank" rel="noopener">View source</a>
+                    </div>
                 </div>
-            </div>
-        </section>
 
-        <section id="calculator" class="calculator">
-            <div class="container">
                 <div class="calc-card">
                     <form id="calc-form" class="calc-form" novalidate>
                         <label class="field-label" for="oct-0">IP address and prefix</label>
@@ -74,32 +80,32 @@
         <section id="features" class="features">
             <div class="container">
                 <h2>Everything a subnet needs</h2>
-                <div class="grid">
-                    <article class="card">
-                        <h3>Subnet mask</h3>
-                        <p>The dotted-decimal mask for any CIDR prefix.</p>
-                    </article>
-                    <article class="card">
-                        <h3>Number of hosts</h3>
-                        <p>The total address count for any subnet size.</p>
-                    </article>
-                    <article class="card">
-                        <h3>Broadcast address</h3>
-                        <p>The broadcast address for any IP and prefix pair.</p>
-                    </article>
-                    <article class="card">
-                        <h3>Wildcard mask</h3>
-                        <p>The inverse mask used in ACLs and routing protocols.</p>
-                    </article>
-                    <article class="card">
-                        <h3>Host range</h3>
-                        <p>The first and last usable addresses in the subnet.</p>
-                    </article>
-                    <article class="card">
-                        <h3>Binary netmask</h3>
-                        <p>The netmask in binary, for learning and review.</p>
-                    </article>
-                </div>
+                <dl class="spec-list">
+                    <div class="spec-row">
+                        <dt>Subnet mask</dt>
+                        <dd>The dotted-decimal mask for any CIDR prefix.</dd>
+                    </div>
+                    <div class="spec-row">
+                        <dt>Number of hosts</dt>
+                        <dd>The total address count for any subnet size.</dd>
+                    </div>
+                    <div class="spec-row">
+                        <dt>Broadcast address</dt>
+                        <dd>The broadcast address for any IP and prefix pair.</dd>
+                    </div>
+                    <div class="spec-row">
+                        <dt>Wildcard mask</dt>
+                        <dd>The inverse mask used in ACLs and routing protocols.</dd>
+                    </div>
+                    <div class="spec-row">
+                        <dt>Host range</dt>
+                        <dd>The first and last usable addresses in the subnet.</dd>
+                    </div>
+                    <div class="spec-row">
+                        <dt>Binary netmask</dt>
+                        <dd>The netmask in binary, for learning and review.</dd>
+                    </div>
+                </dl>
             </div>
         </section>
 
@@ -127,20 +133,16 @@
                 </div>
             </div>
         </section>
-
-        <section class="open-source">
-            <div class="container">
-                <h2>Open source</h2>
-                <p class="section-lead">Licensed under the BSD 2-Clause license. Contributions welcome on GitHub.</p>
-                <a href="https://github.com/ntufar/IPCalculator" class="button ghost dark" target="_blank" rel="noopener">View on GitHub</a>
-            </div>
-        </section>
     </main>
 
     <footer class="site-footer">
-        <div class="container">
-            <p>&copy; 2010&ndash;2026 Nicolai Tufar, Saddam Abu Ghaida</p>
-            <nav>
+        <div class="container footer-inner">
+            <div>
+                <p>&copy; 2010&ndash;2026 Nicolai Tufar, Saddam Abu Ghaida</p>
+                <p>Open source under the BSD 2-Clause license. Contributions welcome.</p>
+            </div>
+            <nav class="footer-nav" aria-label="Footer">
+                <a href="https://github.com/ntufar/IPCalculator" target="_blank" rel="noopener">GitHub</a>
                 <a href="privacy.html">Privacy Policy</a>
             </nav>
         </div>
